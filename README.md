@@ -1,2 +1,120 @@
-# holl
-me chata hon ke hamra kam jab khatam ho jab her bache ke pass kalam ho ga
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Improved Chat Box</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        .chat-container {
+            width: 350px;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-box {
+            height: 350px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+        }
+        .input-box {
+            display: flex;
+            border-top: 1px solid #ddd;
+            padding: 10px;
+            background: #f9f9f9;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+        }
+        button {
+            padding: 10px 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .bot-message, .user-message {
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            max-width: 75%;
+        }
+        .bot-message {
+            background: #e0e0e0;
+            align-self: flex-start;
+        }
+        .user-message {
+            background: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-box" id="chatBox">
+            <p class="bot-message">👋 Welcome! How can I assist you?</p>
+        </div>
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Type a message..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userInput = document.getElementById("userInput").value;
+            let chatBox = document.getElementById("chatBox");
+            
+            if (userInput.trim() !== "") {
+                let userMessage = document.createElement("p");
+                userMessage.className = "user-message";
+                userMessage.textContent = userInput;
+                chatBox.appendChild(userMessage);
+                
+                setTimeout(() => {
+                    let botMessage = document.createElement("p");
+                    botMessage.className = "bot-message";
+                    botMessage.textContent = "🤖 You said: " + userInput;
+                    chatBox.appendChild(botMessage);
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 500);
+                
+                chatBox.scrollTop = chatBox.scrollHeight;
+                document.getElementById("userInput").value = "";
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+    </script>
+
+</body>
+</html>
+
